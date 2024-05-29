@@ -10,12 +10,24 @@ public class AnimalArray {
         this.array = new ArrayList<>(array);
     }
 
+    // verifies if 2 elements form a pair
+    // if they form a pair, returns true; otherwise, false
+    public boolean findPair(int position1, int position2) {
+        if((array.get(position1) == 1 && array.get(position2) == 2) || (array.get(position1) == 2 && array.get(position2) == 3)
+                || (array.get(position1) == 2 && array.get(position2) == 1)
+                || (array.get(position1) == 3 && array.get(position2) == 2))
+            return true;
+        return false;
+    }
+
+
+
     // find pairs of (mouse, cat) or (cat, dog)
-    public List<Integer> findPairs() {
+    public List<Integer> findAllPairs() {
         List<Integer> pairs = new ArrayList<>();
         int length = array.size() - 1;
         for (int i = 0; i < length; i++) {
-            if ((array.get(i) == 1 && array.get(i + 1) == 2) || (array.get(i) == 2 && array.get(i + 1) == 3) || (array.get(i) == 2 && array.get(i + 1) == 1) || (array.get(i) == 3 && array.get(i + 1) == 2)) {
+            if (findPair(i, i + 1)) { // check if 2 consecutive elements form a pair
                 pairs.add(i);
             }
         }
@@ -29,7 +41,7 @@ public class AnimalArray {
 
     // solve the statement problem using the implemented methods
     public List<Integer> beFriends() {
-        List<Integer> pairs = findPairs();
+        List<Integer> pairs = findAllPairs();
         int offset = 0;
         for (int index : pairs) {
             insertCow(index + offset);
